@@ -12,56 +12,97 @@ import DropField from './DropField';
 
 export default class BalanceDialog extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onNameChange = this.onNameChange.bind(this);
+        this.onAmountChange = this.onAmountChange.bind(this);
+        this.onCurrencyChange = this.onCurrencyChange.bind(this);
+        this.isSubmitButtonDisabled = this.isSubmitButtonDisabled.bind(this);
+
+        this.state = {name: '', amount: '', currency: ''};
+    }
+
+    isSubmitButtonDisabled() {
+        if (this.state.name.length > 0 &&
+            this.state.amount.length > 0 &&
+            this.state.currency.length > 0){
+            return false;
+        }else{
+            return true;
+        }
+
+        // todo: check if there are validation errors
+    }
 
     handleSubmit(event) {
-        this.props.someActionForm();
+
+        this.props.submitBalance({'name': this.state.name, 'amount': this.state.amount, 'currency': this.state.currency});
+        this.props.handleCloseDialog();
         event.preventDefault();
-        var author = this.state.author.trim();
-        var text = this.state.text.trim();
-        if (!text || !author) {
-          return;
-        }
-        // TODO: send request to the server
-        this.setState({author: '', text: ''});
-      };
+
+    };
+
+    onNameChange(event) {
+        let value = event.target.value;
+        this.setState({name: value});
+    };
+
+    onAmountChange(event) {
+        let value = event.target.value;
+        this.setState({amount: value});
+    };
+
+    onCurrencyChange(event) {
+        let value = event.target.textContent;
+        this.setState({ currency: value});
+    };
 
     render() {
+
+        let isSubmitDisabled = this.isSubmitButtonDisabled();
         const actions = [
           <FlatButton
             label="Submit"
             primary={true}
+            disabled={isSubmitDisabled}
             keyboardFocused={true}
-            onTouchTap={this.props.handleClose}
-          />
+            onTouchTap={this.handleSubmit} />
         ];
+        let titleElem =
+            <div>
+                <span>
+                    Set your Balance
+                </span>
+                <IconButton style={{float: 'right'}}>
+                    <NavigationClose onClick={this.props.handleCloseDialog}/>
+                </IconButton>
+            </div>;
 
         return (
-          <div>
+            <Dialog title={titleElem}
+                    actions={actions}
+                    modal={true}
+                    open={this.props.isDialogOpen}
+                    onRequestClose={this.props.handleCloseDialog}>
 
-            <Dialog
-              title={<div> <span >Set your Balance</span> <IconButton style={{float: 'right'}}><NavigationClose  onClick={this.props.handleClose}/></IconButton></div>}
-              actions={actions}
-              modal={true}
-              open={this.props.open}
-              onRequestClose={this.props.handleClose}
-            >
-
-              <form onSubmit={this.handleSubmit}>
-                  <FormField hintText="Name"
-                             floatingLabelText="Name"
-                             name="Name"
-                             validators={['required', 'name', 'length']}/>
-                  <br/>
-                  <FormField hintText="Amount"
-                              floatingLabelText="Amount"
-                              name="Amount"
-                              validators={['required', 'amount', 'length']}/>
-                  <br/>
-                  <DropField/>
-
-                </form>
+                  <form onSubmit={this.handleSubmit} >
+                      <FormField hintText="Name"
+                                 floatingLabelText="Name"
+                                 name="Name"
+                                 value={this.state.name}
+                                 onChange={this.onNameChange}
+                                 validators={['required', 'name', 'length']}/>
+                      <br/>
+                      <FormField hintText="Amount"
+                                  floatingLabelText="Amount"
+                                  name="Amount"
+                                  onChange={this.onAmountChange}
+                                  validators={['required', 'amount', 'length']}/>
+                      <br/>
+                      <DropField onChange={this.onCurrencyChange}/>
+                  </form>
             </Dialog>
-          </div>
         );
     }
 }

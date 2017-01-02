@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 
-
 export default class FormField extends Component {
   constructor(props) {
-        super(props)
-        this.state = { errorText: '', value: props.value }
+        super(props);
+        this.onFieldChange = this.onFieldChange.bind(this);
+
+        this.state = { errorText: '', value: props.value };
 
         this.nameRegex = '^[a-zA-Z ]+$';
         this.amountRegex = '^[0-9]+$';
@@ -35,22 +36,23 @@ export default class FormField extends Component {
         }
     }
 
-  onChange(event) {
-    let value = event.target.value;
-    this.setState({ errorText: '' });
+    onFieldChange(event) {
+        let value = event.target.value;
+        this.setState({ errorText: '' })
+        this.props.validators.forEach(validity=>{
+            if (validity === 'required'){
+                this.requiredValidator(value);
+            } else if (validity === 'length'){
+                this.lengthValidator(value);
+            } else if (validity === 'name'){
+                this.nameValidator(value);
+            } else if (validity === 'amount'){
+                this.amountValidator(value);
+            }
+        });
+        this.props.onChange(event);
+    }
 
-    this.props.validators.forEach(validity=>{
-        if (validity === 'required'){
-            this.requiredValidator(value);
-        } else if (validity === 'length'){
-            this.lengthValidator(value);
-        } else if (validity === 'name'){
-            this.nameValidator(value);
-        } else if (validity === 'amount'){
-            this.amountValidator(value);
-        }
-    });
-  }
 
   render() {
 
@@ -61,7 +63,7 @@ export default class FormField extends Component {
       <TextField
         {...textProps}
         errorText={this.state.errorText}
-        onChange={this.onChange.bind(this)}
+        onChange={this.onFieldChange}
       />
     )
   }

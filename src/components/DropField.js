@@ -5,23 +5,20 @@ import MenuItem from 'material-ui/MenuItem';
 export default class DropField extends Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this)
+        this.onFieldChange = this.onFieldChange.bind(this)
 
-        this.state = { errorText: '', value: 1 };
-//        this.requiredValidator = (str)=>{
-//            if (!str || str.length === 0){
-//                this.setState({ errorText: 'Field is required' });
-//            }
-//        }
+        this.state = {errorText: ''};
+        // TODO: check that field selected instead of default 1
     }
 
-    handleChange = (event, index, value) => {
+    onFieldChange = (event, index, value) => {
         this.setState({value});
+        this.props.onChange(event);
     }
 
     render() {
         return (
-            <SelectField hintText="Currency" value={this.state.value} onChange={this.handleChange}>
+            <SelectField hintText="Currency" value={this.state.value} onChange={this.onFieldChange}>
                 <MenuItem value={1} primaryText="Euro" />
                 <MenuItem value={2} primaryText="Dollar" />
             </SelectField>

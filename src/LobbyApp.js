@@ -2,25 +2,30 @@ import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '../css/App.css';
-import BalanceDialog from './components/BalanceDialog';
 import logo from '../images/logo.jpg';
+import BalanceDialog from './components/BalanceDialog';
 import ActionButton from './components/ActionButton.js';
 
 injectTapEventPlugin(); // workaround for react/material warning
 
-class LobbyApp extends Component {
+export default class LobbyApp extends Component {
 
     state = {
-        openDialog: false,
-        buttonText: 'login77'
+        isDialogOpen: false,
+        buttonText: 'login',
+        data: {}
     };
 
-    handleOpen = () => {
-        this.setState({openDialog: true});
+    handleOpenDialog = () => {
+        this.setState({isDialogOpen: true});
     };
 
-    handleClose = () => {
-        this.setState({openDialog: false});
+    handleCloseDialog = () => {
+        this.setState({isDialogOpen: false});
+    };
+
+    submitBalance = (data) => {
+        this.setState({data, buttonText: 'change balance'});
     };
 
     render() {
@@ -30,17 +35,14 @@ class LobbyApp extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <div className="App-header">
                 <h2>Welcome to the Netomedia</h2>
-                <ActionButton handleOpen={this.handleOpen} text={this.state.buttonText}/>
-                <BalanceDialog open={this.state.openDialog} handleClose={this.handleClose}></BalanceDialog>
+                <ActionButton handleOpenDialog={this.handleOpenDialog} buttonText={this.state.buttonText}/>
+                <BalanceDialog isDialogOpen={this.state.isDialogOpen} handleCloseDialog={this.handleCloseDialog} submitBalance={this.submitBalance}></BalanceDialog>
             </div>
 
             <p className="App-intro">
-              To get started, edit <code>src/App.js</code> and save to reload.
             </p>
           </div>
         </MuiThemeProvider>
         );
     }
 }
-
-export default LobbyApp;
