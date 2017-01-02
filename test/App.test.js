@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LobbyApp from './LobbyApp';
+import LobbyApp from '../src/LobbyApp';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
