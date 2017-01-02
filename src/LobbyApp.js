@@ -13,7 +13,8 @@ export default class LobbyApp extends Component {
     state = {
         isDialogOpen: false,
         buttonText: 'login',
-        data: {}
+        data: {},
+        lobbyText: 'Welcome to the Netomedia'
     };
 
     handleOpenDialog = () => {
@@ -25,7 +26,9 @@ export default class LobbyApp extends Component {
     };
 
     submitBalance = (data) => {
-        this.setState({data, buttonText: 'change balance'});
+        let currencySign = (data.currency === "Euro" ? '€' : '$');
+        let lobbyText = `welcome back ${data.name}, your balance is: ${data.amount}${currencySign}`;
+        this.setState({data, buttonText: 'change balance', lobbyText});
     };
 
     render() {
@@ -34,7 +37,7 @@ export default class LobbyApp extends Component {
           <div className="App">
             <img src={logo} className="App-logo" alt="logo" />
             <div className="App-header">
-                <h2>Welcome to the Netomedia</h2>
+                <h2>{this.state.lobbyText}</h2>
                 <ActionButton handleOpenDialog={this.handleOpenDialog} buttonText={this.state.buttonText}/>
                 <BalanceDialog isDialogOpen={this.state.isDialogOpen} handleCloseDialog={this.handleCloseDialog} submitBalance={this.submitBalance}></BalanceDialog>
             </div>
