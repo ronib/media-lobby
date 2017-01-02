@@ -18,12 +18,15 @@ export default class DropField extends Component {
     }
 
     render() {
+        if (!this.props.isVisible){
+            return null;
+        }
         return (
             <SelectField hintText="Currency" value={this.state.value} onChange={this.onFieldChange}>
                 <MenuItem value={1} primaryText={EURO} />
                 <MenuItem value={2} primaryText={DOLLAR} />
             </SelectField>
-    )
-  }
+        )
+    }
 }
 

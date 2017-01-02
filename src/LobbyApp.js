@@ -7,7 +7,7 @@ import BalanceDialog from './components/BalanceDialog';
 import ActionButton from './components/ActionButton';
 import {WELCOME, LOGIN, BALANCE, EURO} from './utils/Consts';
 
-injectTapEventPlugin(); // workaround for react/material warning
+injectTapEventPlugin(); // workaround to disable react/material warning message
 
 export default class LobbyApp extends Component {
 
@@ -40,11 +40,13 @@ export default class LobbyApp extends Component {
             <div className="App-header">
                 <h2>{this.state.lobbyText}</h2>
                 <ActionButton handleOpenDialog={this.handleOpenDialog} buttonText={this.state.buttonText}/>
-                <BalanceDialog isDialogOpen={this.state.isDialogOpen} handleCloseDialog={this.handleCloseDialog} submitBalance={this.submitBalance}></BalanceDialog>
+                <BalanceDialog
+                    isDialogOpen={this.state.isDialogOpen}
+                    handleCloseDialog={this.handleCloseDialog}
+                    submitBalance={this.submitBalance}
+                    isDisplayAllFields={this.state.lobbyText===WELCOME}>
+                </BalanceDialog>
             </div>
-
-            <p className="App-intro">
-            </p>
           </div>
         </MuiThemeProvider>
         );

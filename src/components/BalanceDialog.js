@@ -70,6 +70,7 @@ export default class BalanceDialog extends React.Component {
             keyboardFocused={true}
             onTouchTap={this.handleSubmit} />
         ];
+
         let titleElem =
             <div>
                 <span>
@@ -93,15 +94,18 @@ export default class BalanceDialog extends React.Component {
                                  name="Name"
                                  value={this.state.name}
                                  onChange={this.onNameChange}
+                                 isVisible={this.props.isDisplayAllFields}
                                  validators={[REQUIRED, NAME, LENGTH]}/>
                       <br/>
                       <FormField hintText="Amount"
                                   floatingLabelText="Amount"
                                   name="Amount"
+                                  isVisible={true}
                                   onChange={this.onAmountChange}
                                   validators={[REQUIRED, AMOUNT, LENGTH]}/>
                       <br/>
-                      <DropField onChange={this.onCurrencyChange}/>
+                      <DropField onChange={this.onCurrencyChange}
+                                 isVisible={this.props.isDisplayAllFields}/>
                   </form>
             </Dialog>
         );

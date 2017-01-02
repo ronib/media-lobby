@@ -58,9 +58,13 @@ export default class FormField extends Component {
 
 
   render() {
+    if (!this.props.isVisible){
+        return null;
+    }
 
     const textProps = Object.assign({}, this.props);
     delete textProps.validators;
+    delete textProps.isVisible;
 
     return (
       <TextField
