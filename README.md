@@ -1,8 +1,8 @@
 <html>
 <head>
-Practical Exam, Client Side (React)
+<b>Practical Exam, Client Side (React)</b>
 <br>
-download repository, then install it (npm install) and start (npm start)
+ * download repository, then install it (npm install) and start (npm start)
 <br>
 </head>
 <body>
