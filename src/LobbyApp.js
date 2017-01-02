@@ -4,7 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '../css/App.css';
 import logo from '../images/logo.jpg';
 import BalanceDialog from './components/BalanceDialog';
-import ActionButton from './components/ActionButton.js';
+import ActionButton from './components/ActionButton';
+import {WELCOME, LOGIN, BALANCE, EURO} from './utils/Consts';
 
 injectTapEventPlugin(); // workaround for react/material warning
 
@@ -12,9 +13,9 @@ export default class LobbyApp extends Component {
 
     state = {
         isDialogOpen: false,
-        buttonText: 'login',
+        buttonText: LOGIN,
         data: {},
-        lobbyText: 'Welcome to the Netomedia'
+        lobbyText: WELCOME
     };
 
     handleOpenDialog = () => {
@@ -26,9 +27,9 @@ export default class LobbyApp extends Component {
     };
 
     submitBalance = (data) => {
-        let currencySign = (data.currency === "Euro" ? '€' : '$');
+        let currencySign = (data.currency === EURO ? '€' : '$');
         let lobbyText = `welcome back ${data.name}, your balance is: ${data.amount}${currencySign}`;
-        this.setState({data, buttonText: 'change balance', lobbyText});
+        this.setState({data, buttonText: BALANCE, lobbyText});
     };
 
     render() {

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
+import {REQUIRED, LENGTH, NAME, AMOUNT} from '../utils/Consts'
+import {REQUIRED_MSG, LENGTH_MSG, NAME_MSG, AMOUNT_MSG} from '../utils/Consts'
+
 
 export default class FormField extends Component {
   constructor(props) {
@@ -13,25 +16,25 @@ export default class FormField extends Component {
 
         this.requiredValidator = (str)=>{
             if (!str || str.length === 0){
-                this.setState({ errorText: 'Field is required' });
+                this.setState({ errorText: REQUIRED_MSG });
             }
         }
 
         this.lengthValidator = (str)=>{
             if (str.length > 15){
-                this.setState({ errorText: 'Field length is 15 chars maximum' });
+                this.setState({ errorText: LENGTH_MSG });
             }
         }
 
         this.nameValidator = (str)=>{
             if (str.length > 0 && !str.match(this.nameRegex)){
-                this.setState({ errorText: 'Field must contain only english chars or spaces' })
+                this.setState({ errorText: NAME_MSG })
             }
         }
 
         this.amountValidator = (str)=>{
             if (str.length > 0 && !str.match(this.amountRegex)){
-                this.setState({ errorText: 'Field must contain only numbers' })
+                this.setState({ errorText: AMOUNT_MSG })
             }
         }
     }
@@ -40,13 +43,13 @@ export default class FormField extends Component {
         let value = event.target.value;
         this.setState({ errorText: '' })
         this.props.validators.forEach(validity=>{
-            if (validity === 'required'){
+            if (validity === REQUIRED){
                 this.requiredValidator(value);
-            } else if (validity === 'length'){
+            } else if (validity === LENGTH){
                 this.lengthValidator(value);
-            } else if (validity === 'name'){
+            } else if (validity === NAME){
                 this.nameValidator(value);
-            } else if (validity === 'amount'){
+            } else if (validity === AMOUNT){
                 this.amountValidator(value);
             }
         });

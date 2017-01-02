@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import {EURO, DOLLAR} from '../utils/Consts'
 
 export default class DropField extends Component {
     constructor(props) {
@@ -19,8 +20,8 @@ export default class DropField extends Component {
     render() {
         return (
             <SelectField hintText="Currency" value={this.state.value} onChange={this.onFieldChange}>
-                <MenuItem value={1} primaryText="Euro" />
-                <MenuItem value={2} primaryText="Dollar" />
+                <MenuItem value={1} primaryText={EURO} />
+                <MenuItem value={2} primaryText={DOLLAR} />
             </SelectField>
     )
   }

@@ -5,6 +5,7 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
 import FormField from './FormField';
 import DropField from './DropField';
+import {REQUIRED, LENGTH, NAME, AMOUNT} from '../utils/Consts'
 
 /**
  * Dialog to set balance of user
@@ -37,7 +38,7 @@ export default class BalanceDialog extends React.Component {
 
     handleSubmit(event) {
 
-        this.props.submitBalance({'name': this.state.name, 'amount': this.state.amount, 'currency': this.state.currency});
+        this.props.submitBalance({name: this.state.name, amount: this.state.amount, currency: this.state.currency});
         this.props.handleCloseDialog();
         event.preventDefault();
 
@@ -92,13 +93,13 @@ export default class BalanceDialog extends React.Component {
                                  name="Name"
                                  value={this.state.name}
                                  onChange={this.onNameChange}
-                                 validators={['required', 'name', 'length']}/>
+                                 validators={[REQUIRED, NAME, LENGTH]}/>
                       <br/>
                       <FormField hintText="Amount"
                                   floatingLabelText="Amount"
                                   name="Amount"
                                   onChange={this.onAmountChange}
-                                  validators={['required', 'amount', 'length']}/>
+                                  validators={[REQUIRED, AMOUNT, LENGTH]}/>
                       <br/>
                       <DropField onChange={this.onCurrencyChange}/>
                   </form>
