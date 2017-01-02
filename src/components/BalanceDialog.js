@@ -10,7 +10,7 @@ import DropField from './DropField';
  * Dialog to set balance of user
  */
 
-export default class SimpleDialog extends React.Component {
+export default class BalanceDialog extends React.Component {
 
 
     handleSubmit(event) {

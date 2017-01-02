@@ -3,23 +3,24 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '../css/App.css';
 import BalanceDialog from './components/BalanceDialog';
-import RaisedButton from 'material-ui/RaisedButton';
 import logo from '../images/logo.jpg';
+import ActionButton from './components/ActionButton.js';
 
 injectTapEventPlugin(); // workaround for react/material warning
 
 class LobbyApp extends Component {
 
     state = {
-        open: false,
+        openDialog: false,
+        buttonText: 'login77'
     };
 
     handleOpen = () => {
-        this.setState({open: true});
+        this.setState({openDialog: true});
     };
 
     handleClose = () => {
-        this.setState({open: false});
+        this.setState({openDialog: false});
     };
 
     render() {
@@ -29,8 +30,8 @@ class LobbyApp extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <div className="App-header">
                 <h2>Welcome to the Netomedia</h2>
-                <RaisedButton label="Login" onTouchTap={this.handleOpen} />
-                <BalanceDialog open={this.state.open} handleClose={this.handleClose}></BalanceDialog>
+                <ActionButton handleOpen={this.handleOpen} text={this.state.buttonText}/>
+                <BalanceDialog open={this.state.openDialog} handleClose={this.handleClose}></BalanceDialog>
             </div>
 
             <p className="App-intro">
