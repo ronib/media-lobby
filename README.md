@@ -1,6 +1,7 @@
 <html>
 <head>
 Practical Exam, Client Side (React)
+use npm start
 </head>
 <body>
 

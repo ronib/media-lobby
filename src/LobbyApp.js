@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import './App.css';
+import '../css/App.css';
 import BalanceDialog from './components/BalanceDialog';
 import RaisedButton from 'material-ui/RaisedButton';
+import logo from '../images/logo.jpg';
 
-injectTapEventPlugin();
+injectTapEventPlugin(); // workaround for react/material warning
 
 class LobbyApp extends Component {
 
@@ -25,6 +26,7 @@ class LobbyApp extends Component {
         return (
         <MuiThemeProvider>
           <div className="App">
+            <img src={logo} className="App-logo" alt="logo" />
             <div className="App-header">
                 <h2>Welcome to the Netomedia</h2>
                 <RaisedButton label="Login" onTouchTap={this.handleOpen} />
